@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Una carta para ti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, #ffd5ec, #ffe6f0);
+      font-family: 'Quicksand', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      clip-path: polygon(50% 0%, 61% 9%, 71% 19%, 79% 30%, 83% 42%, 84% 54%, 81% 66%, 75% 76%, 67% 85%, 57% 91%, 45% 94%, 33% 93%, 23% 88%, 15% 80%, 9% 69%, 6% 57%, 6% 45%, 9% 33%, 15% 23%, 23% 14%, 33% 7%, 45% 2%, 50% 0%);
+      animation: fall 8s linear infinite;
+      opacity: 0.7;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+      flex-direction: column;
+    }
+
+    .envelope {
+      width: 100%;
+      max-width: 800px;
+      background: linear-gradient(135deg, #fdf6e3, #f5e6cc);
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      position: relative;
+      text-align: center;
+      margin: auto;
+    }
+
+    .seal {
+      width: 80px;
+      height: 80px;
+      background: crimson;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 3;
+      transition: transform 0.4s ease;
+    }
+
+    .seal:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .reveal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, pink 20%, transparent 70%);
+      border-radius: 50%;
+      z-index: 2;
+      animation: pulse 1.2s ease-out forwards;
+    }
+
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(15); opacity: 0; }
+    }
+
+    .letter {
+      display: none;
+      opacity: 0;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 60px;
+      animation: fadeIn 1.5s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .content {
+      font-size: 1.1em;
+      line-height: 1.8;
+      color: #444;
+      white-space: pre-line;
+    }
+
+    #verBtn {
+      margin: 20px auto 0;
+      padding: 15px 30px;
+      background: #ff85c1;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 1em;
+      cursor: pointer;
+      display: none;
+      position: relative;
+    }
+
+    .arrow {
+      display: none;
+      font-size: 2em;
+      color: #ff69b4;
+      animation: bounce 1.2s infinite;
+      margin-top: 10px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .signature {
+      color: gold;
+      font-weight: bold;
+      margin-top: 30px;
+      font-size: 1.2em;
+    }
+
+    audio { display: none; }
+  </style>
+</head>
+<body>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+    setInterval(createHeart, 300);
+  </script>
+
+  <div class="container">
+    <div class="envelope" id="envelope">
+      <div class="seal" id="seal">💌</div>
+      <div class="letter" id="letter">
+        <div class="title">Para ti, con el alma</div>
+        <div class="content">
+Siento que no tengo las palabras exactas, pero te debo esto... algo que salga desde lo más sincero de mí.
+
+Te fallé, lo sé. Te lastimé, lo sé. Y no hay día que no me culpe por ello.
+No fuiste cualquier persona, fuiste mi todo. Fuiste quien me abrazó cuando nadie más lo hacía, quien me entendió sin que hablara.
+
+Te amo, y lo hago con un amor que ya no se encuentra fácil. No fue un juego para mí.
+
+Sé que intenté alejarte, que incluso llegué a actuar como alguien que no era, solo para que me dejaras. Porque sentía que te hacía daño...
+y la verdad es que lo único que hice fue perderte.
+
+Gracias por haber estado, por haber dado todo de ti.
+Eres una mujer de mil, de esas que uno no olvida nunca.
+
+Te deseo una vida llena de flores, de cosas dulces, de amor bonito. Ojalá alguien te vea como yo lo hice, pero te sepa cuidar.
+
+Y si un día volvemos a cruzarnos… que sea sin rencores, con el alma libre, y el corazón en paz.
+
+<span class="signature">Firmado: Giovanni :(</span>
+        </div>
+        <div class="arrow" id="arrow">⬇️</div>
+        <button id="verBtn" onclick="window.open('https://www.youtube.com/watch?v=DXV79KHSftc&list=RDDXV79KHSftc&start_radio=1','_blank')">Ver</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2023/05/16/audio_5829fc651a.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    const seal = document.getElementById('seal');
+    const letter = document.getElementById('letter');
+    const music = document.getElementById('bgMusic');
+    const envelope = document.getElementById('envelope');
+    const verBtn = document.getElementById('verBtn');
+    const arrow = document.getElementById('arrow');
+
+    seal.addEventListener('click', function () {
+      const effect = document.createElement('div');
+      effect.classList.add('reveal');
+      envelope.appendChild(effect);
+      seal.style.display = 'none';
+      setTimeout(() => {
+        letter.style.display = 'block';
+        music.play();
+        window.scrollTo({ top: envelope.offsetTop, behavior: 'smooth' });
+        setTimeout(() => {
+          verBtn.style.display = 'block';
+          arrow.style.display = 'block';
+        }, 1500);
+      }, 800);
+    });
+  </script>
+</body>
+</html>
